@@ -1,0 +1,10 @@
+// CRUD
+// CONTROLLER
+// Service
+// Module
+// Create Mi using cmd
+// Error Exceptions
+// Validations
+// DTO
+// Providers useValue - useClass - useFactory
+// 

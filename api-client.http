@@ -1,0 +1,12 @@
+
+POST    /songs
+Content-Type: application/json 
+
+{
+    "title":"Monster",
+    "artists":["Monster"],
+    "releasedDate":"2022-09-09",
+    "duration":"12-5"
+}
+
+# GET http://localhost:3000/songs
