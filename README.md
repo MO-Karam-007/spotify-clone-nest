@@ -1,4 +1,7 @@
-Spotify clone built with NestJS, PostgreSQL, and featuring authentication, playlist management, song handling, and artist functionality:
+Spotify clone built with NestJS, PostgreSQL, and featuring authentication, playlist management, song handling, and artist functionality.
+
+**API Documentation**
+Postman API : https://documenter.getpostman.com/view/19040062/2sA3Bn5XFb
 
 **Introduction**
 
@@ -40,13 +43,13 @@ Playlist
   - id (primary key)
   - name
   - owner_id (foreign key to User)
-  - songs One to many relation 
-  - user Many to one relation 
+  - songs One to many relation
+  - user Many to one relation
 
 Song
   - id (primary key)
   - title
-  - released date 
+  - released date
   - duration
   - lyrics
   - playlist Many to one relation
@@ -61,7 +64,7 @@ Artist
 
 **1. Users:**
 
-- **POST /users** (Create User): Creates a new user account. **Request Body:** `{ firstName: string, lastName: string, email: string, password: string }` 
+- **POST /users** (Create User): Creates a new user account. **Request Body:** `{ firstName: string, lastName: string, email: string, password: string }`
 
 **2. Authentication (Placeholder):**
 
@@ -84,4 +87,3 @@ Artist
 
 - **GET /artists** (Get All Artists): Retrieves all artists (consider pagination for large datasets). **Response:** `{ artists: Artist[] }` (Array of artist objects)
 - **GET /artists/:id** (Get Artist by ID): Retrieves a specific artist by its ID. **Path Parameter:** `{ id: number }` **Response:** `{ artist: Artist }` (Artist object)
-
