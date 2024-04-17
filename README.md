@@ -1,6 +1,7 @@
 Spotify clone built with NestJS, PostgreSQL, and featuring authentication, playlist management, song handling, and artist functionality.
 
 **API Documentation**
+
 Postman API : https://documenter.getpostman.com/view/19040062/2sA3Bn5XFb
 
 **Introduction**
