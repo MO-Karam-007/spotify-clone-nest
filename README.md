@@ -1,73 +1,87 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+Spotify clone built with NestJS, PostgreSQL, and featuring authentication, playlist management, song handling, and artist functionality:
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+**Introduction**
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+This API documentation serves as a guide for developers and users interacting with a Spotify clone application. It details the functionalities, endpoints, request/response structures, authentication mechanisms, and data models involved.
 
-## Description
+**Technologies**
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Backend Framework: NestJS
+- Database: PostgreSQL
+- Authentication -- Not yet
+- Data Models: Entities representing real-world concepts (users, playlists, songs, artists)
 
-## Installation
+**Authentication**
 
-```bash
-$ npm install
+_This section will be filled with specific details of your implemented authentication mechanism._
+
+The API utilizes a secure authentication system to control access to sensitive data and functionalities. To interact with the API, users must obtain a valid authentication token through a separate login or signup process. This token should be included in the authorization header of all subsequent requests.
+
+**Data Models**
+
+- **User:** Represents a registered user with relevant information (ID, first name, last name, email, etc.)
+- **Playlist:** Represents a user-created playlist containing songs (ID, name, user, songs)
+- **Song:** Represents a song entity (ID, title, artist, duration, released date, lyrics, playlist, artists)
+- **Artist:** Represents an artist associated with songs (ID, songs)
+
+**Entities and Relationships**
+
+(Replace placeholders with actual entity field names)
+
+```
+User
+  - id (primary key)
+  - first name
+  - last name
+  - email
+  - password
+
+Playlist
+  - id (primary key)
+  - name
+  - owner_id (foreign key to User)
+  - songs One to many relation 
+  - user Many to one relation 
+
+Song
+  - id (primary key)
+  - title
+  - released date 
+  - duration
+  - lyrics
+  - playlist Many to one relation
+  - Artists Many to many relation
+
+Artist
+  - id (primary key)
+  - songs Many to many relation
 ```
 
-## Running the app
+**API Endpoints**
 
-```bash
-# development
-$ npm run start
+**1. Users:**
 
-# watch mode
-$ npm run start:dev
+- **POST /users** (Create User): Creates a new user account. **Request Body:** `{ firstName: string, lastName: string, email: string, password: string }` 
 
-# production mode
-$ npm run start:prod
-```
+**2. Authentication (Placeholder):**
 
-## Test
+- **POST /auth/login** (Login): Authenticates a user and returns an access token. **Request Body:** `{ email: string, password: string }` **Response:** `{ token: string }` (Authentication token) --not yet
 
-```bash
-# unit tests
-$ npm run test
+**3 . Playlists:**
 
-# e2e tests
-$ npm run test:e2e
+- **GET /playlists** (Get All Playlists): Retrieves all playlists for the authenticated user (requires valid token). **Response:** `{ playlists: Playlist[] }` (Array of playlist objects)
+- **GET /playlists/:id** (Get Playlist by ID): Retrieves a specific playlist by its ID (requires valid token). **Path Parameter:** `{ id: number }` **Response:** `{ playlist: Playlist }` (Playlist object)
+- **POST /playlists** (Create Playlist): Creates a new playlist for the authenticated user (requires valid token). **Request Body:** `{ name: string }` **Response:** `{ playlist: Playlist }` (Newly created playlist object)
+- **PUT /playlists/:id** (Update Playlist): Updates an existing playlist (requires valid token). **Path Parameter:** `{ id: number }` **Request Body:** `{ name: string }` (Optional fields for update) **Response:** `{ playlist: Playlist }` (Updated playlist object)
+- **DELETE /playlists/:id** (Delete Playlist): Deletes a playlist by ID (requires valid token). **Path Parameter:** `{ id: number }` **Response:** `{ message: string }` (Success message)
 
-# test coverage
-$ npm run test:cov
-```
+**4. Songs:**
 
-## Support
+- **GET /songs** (Get All Songs): Retrieves all songs (consider pagination for large datasets). **Response:** `{ songs: Song[] }` (Array of song objects)
+- **GET /songs/:id** (Get Song by ID): Retrieves a specific song by its ID. **Path Parameter:** `{ id: number }` **Response:** `{ song: Song }` (Song object)
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+**5. Artists:**
 
-## Stay in touch
+- **GET /artists** (Get All Artists): Retrieves all artists (consider pagination for large datasets). **Response:** `{ artists: Artist[] }` (Array of artist objects)
+- **GET /artists/:id** (Get Artist by ID): Retrieves a specific artist by its ID. **Path Parameter:** `{ id: number }` **Response:** `{ artist: Artist }` (Artist object)
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
